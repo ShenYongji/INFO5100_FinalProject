@@ -1,9 +1,6 @@
 package FinalProject;
 
 import javafx.application.Application;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.scene.*;
 import javafx.fxml.*;
@@ -12,12 +9,9 @@ import java.io.IOException;
 
 
 public class main extends Application {
-
-
+    //Main entrance of Image Management Tool - INFO 5100
     public static void main(String[] args) {
-
         launch(args);
-
     }
 
     @Override
