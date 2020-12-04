@@ -9,7 +9,7 @@ import java.io.IOException;
 
 
 public class main extends Application {
-    //Main entrance of Image Management Tool - INFO 5100
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -17,7 +17,7 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("mainUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("preface.fxml"));
         primaryStage.setTitle("Image Management Tool - INFO 5100");
         primaryStage.setScene(new Scene(root, 640, 400));
         primaryStage.show();

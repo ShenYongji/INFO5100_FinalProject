@@ -24,21 +24,20 @@ public class Fcontroller implements Initializable {
     public void setConvertStage(Stage convertStage, bigimage bimg) {
         this.convertStage = convertStage;
         this.bimg = bimg;
-//        this.path = this.bimg.get_Path();
-//        this.curr_format = this.bimg.get_curr_format();
-//        this.filename = this.bimg.get_filename();
-//        javaxt.io.Image tmp = bimg.get_image().copy();
-//        System.out.println("Rotate:" + bimg.get_rotate());
-//        tmp.rotate(bimg.get_rotate());
-//        this.Image = new javaxt.io.Image((BufferedImage) tmp.getImage());
     }
 
     public void handelOK(ActionEvent actionEvent){
         //Get all modifications of bimg and actually change bimg
         javaxt.io.Image tmp = bimg.get_image().copy();
-        System.out.println("Rotate:" + bimg.get_rotate());
-        tmp.rotate(bimg.get_rotate());
-        javaxt.io.Image Image = new javaxt.io.Image((BufferedImage) tmp.getImage());
+        System.out.println("The current status of preview image (modifications)");
+        bimg.print_current_bimg();
+        if(bimg.get_rotate()!=0) {
+            tmp.rotate(bimg.get_rotate());
+        }
+        if(bimg.get_desaturate()){
+            tmp.desaturate();
+        }
+        javaxt.io.Image Image = tmp;
         String filename = bimg.get_filename();
         //User selects the format of output
         if(ButtonGIF.isSelected()){
@@ -58,7 +57,6 @@ public class Fcontroller implements Initializable {
             convertStage.close();
             alertWindow("PNG");
         }else{
-            //alert user to pick format
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Illegal operation");
             alert.setContentText("You have to choose a format before converting!");
@@ -80,7 +78,6 @@ public class Fcontroller implements Initializable {
     }
 
     public void alertWindow(String s){
-        //Success page
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Congratulation!");
         alert.setHeaderText(null);

@@ -1,6 +1,5 @@
 package FinalProject;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.nio.file.Path;
@@ -23,6 +22,7 @@ public class image_info {
     private String filename;
     private String curr_format;
     private javaxt.io.Image image;
+    private javafx.scene.image.Image imageview;
 
     public Integer get_height(){
         return image.getHeight();
@@ -43,8 +43,18 @@ public class image_info {
     public javaxt.io.Image get_image(){
         return image;
     }
+    public javafx.scene.image.Image get_Image(){
+        return imageview;
+    }
 
     public image_info(String Path){
+        try {
+            File img = new File(Path);
+            InputStream isImage = new FileInputStream(img);
+            this.imageview = new javafx.scene.image.Image(isImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Path path = Paths.get(Path);
         Path fileName = path.getFileName();
         this.Path = path.toString();
@@ -82,22 +92,45 @@ class smallimage extends image_info{
         return data;
     }
 
+    public void print_current_simg(){
+        System.out.println("New Image");
+        System.out.println(get_Path());
+        System.out.println(get_filename_extension());
+        System.out.println(get_filename());
+        System.out.println(get_curr_format());
+    }
     public smallimage(String Path) {
         super(Path);
         this.s_path = get_Path();
-        }
     }
+}
 
 class bigimage extends image_info{
     //Class bigimage extends from its parent class - image_info
     //Contain the modifications of bigger image from the "Filter" functions
+
+    private boolean desaturate = false;
     private int rotate = 0;
+
     public void set_rotate(int n){
         rotate = rotate + n;
     }
     public int get_rotate(){
         return rotate;
     }
+    public void setdesaturate(boolean x){
+        this.desaturate = x;
+    }
+    public boolean get_desaturate(){
+        return desaturate;
+    }
+
+    public void print_current_bimg(){
+        System.out.println("Rotate:"+get_rotate());
+        System.out.println("Desaturate:"+get_desaturate());
+        System.out.println("_______________________________");
+    }
+
     public bigimage(String Path) {
         super(Path);
     }

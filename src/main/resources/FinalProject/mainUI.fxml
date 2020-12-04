@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FinalProject.Controller">
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FinalProject.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -49,8 +49,10 @@
                                        </viewport></ImageView>
                                     <AnchorPane fx:id="filter" layoutY="257.0" prefHeight="100.0" prefWidth="430.0">
                                        <children>
-                                          <Button fx:id="Right" layoutX="25.0" layoutY="50.0" mnemonicParsing="false" onAction="#RightRotate" text="Right Rotate" />
-                                          <Button fx:id="Left" layoutX="29.0" layoutY="14.0" mnemonicParsing="false" onAction="#LeftRotate" text="Left Rotate" />
+                                          <Button fx:id="Right" layoutX="86.0" layoutY="55.0" mnemonicParsing="false" onAction="#RightRotate" prefHeight="25.0" prefWidth="85.0" text="Right Rotate" />
+                                          <Button fx:id="Left" layoutX="86.0" layoutY="19.0" mnemonicParsing="false" onAction="#LeftRotate" prefHeight="25.0" prefWidth="85.0" text="Left Rotate" />
+                                          <Button fx:id="buttonRestore" layoutX="254.0" layoutY="55.0" mnemonicParsing="false" onAction="#setRestore" prefHeight="25.0" prefWidth="85.0" text="Restore" />
+                                          <Button fx:id="buttonDesaturate" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" onAction="#setDesaturate" prefHeight="25.0" prefWidth="85.0" text="Desaturate" />
                                        </children>
                                     </AnchorPane>
                                  </children>
