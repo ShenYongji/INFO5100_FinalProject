@@ -7,14 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.CacheHint;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,6 +29,7 @@ public class Controller implements Initializable {
     @FXML private ImageView Bigimage;
     @FXML private ImageView Smallimage;
     @FXML private AnchorPane filter;
+    @FXML private ScrollPane sp;
     @FXML private Button buttonRestore;
     @FXML private Button buttonDesaturate;
     @FXML private AnchorPane app;
@@ -77,7 +77,8 @@ public class Controller implements Initializable {
             Bigimage.setEffect(null);
             Bigimage.setRotate(0);
             //Setting image structure
-            bimg = new bigimage(path);
+            BigimageFactory bf = new BigimageFactory();
+            bimg = bf.getInstance(path);
             simg = new smallimage(path);
             //Displaying both images on the frontend at the same time
             Smallimage.setImage(simg.get_Image());
@@ -155,12 +156,61 @@ public class Controller implements Initializable {
 
     public void get_image_info(smallimage simg){
         //To get the information of image that user select from image structure.
-        info.setText(
-                "File Name: " +simg.get_filename_extension() +"\n"+
-                        "File Size:  " + simg.get_data().get("File Size")+ "\n" +
-                        "Image Height: " + simg.get_height().toString()+" Pixels"+ "\n" +
-                        "Image Width: "+simg.get_width().toString()+" Pixels");
+
+//        System.out.println(simg.get_data().get("Lens Specification"));
+//        System.out.println(simg.get_data().get("Lens Make"));
+//        System.out.println(simg.get_data().get("Lens Model"));
+//        System.out.println(simg.get_data().get("GPS Latitude Ref"));
+//        System.out.println(simg.get_data().get("GPS Latitude"));
+//        System.out.println(simg.get_data().get("GPS Longitude Ref"));
+//        System.out.println(simg.get_data().get("GPS Longitude"));
+//        System.out.println(simg.get_data().get("GPS Altitude Ref"));
+//        System.out.println(simg.get_data().get("GPS Altitude"));
+//        System.out.println(simg.get_data().get("GPS Speed Ref"));
+//        System.out.println(simg.get_data().get("GPS Speed"));
+//        System.out.println(simg.get_data().get("GPS Img Direction Ref"));
+//        System.out.println(simg.get_data().get("GPS Img Direction"));
+//        System.out.println(simg.get_data().get("GPS Dest Bearing Ref"));
+//        System.out.println(simg.get_data().get("GPS Dest Bearing"));
+//        System.out.println(simg.get_data().get("GPS Date Stamp"));
+
+        StringBuilder img_info = new StringBuilder("");
+
+        if (simg.get_filename_extension()!= null){
+            img_info.append("File Name: " +simg.get_filename_extension());
+        }
+
+        if(simg.get_data().get("File Size")!=null){
+            img_info.append("\n\n");
+            img_info.append("File Size:  " + simg.get_data().get("File Size"));
+        }
+
+        if(simg.get_height().toString()!=null){
+            img_info.append("\n\n");
+            img_info.append("Image Height: " + simg.get_height().toString()+" Pixels");
+        }
+
+        if(simg.get_width().toString()!=null){
+            img_info.append("\n\n");
+            img_info.append("Image Width: "+simg.get_width().toString()+" Pixels");
+        }
+
+        if(simg.get_data().get("GPS Latitude")!=null && simg.get_data().get("GPS Latitude Ref")!=null &&simg.get_data().get("GPS Longitude") != null && simg.get_data().get("GPS Longitude Ref")!=null){
+            String GPS_Latitude = simg.get_data().get("GPS Latitude") +' '+ simg.get_data().get("GPS Latitude Ref");
+            String GPS_Longitude = simg.get_data().get("GPS Longitude") +' '+ simg.get_data().get("GPS Longitude Ref");
+            img_info.append("\n\n");
+            img_info.append("Location: "+GPS_Latitude +"; "+ GPS_Longitude);
+        }
+
+        if(simg.get_data().get("Lens Model")!=null){
+            img_info.append("\n\n");
+            img_info.append("Camera: "+simg.get_data().get("Lens Model"));
+        }
+
+        info.setText(img_info.toString());
         info.setWrapText(true);
+
+
     }
 
     @Override
@@ -198,7 +248,7 @@ public class Controller implements Initializable {
         //alert to user as well
         if(bimg.get_desaturate() || bimg.get_rotate()!=0){
             bimg.setdesaturate(false);
-            bimg.set_rotate(0);
+            bimg.reset_rotate();
 
             Bigimage.setEffect(null);
             Bigimage.setRotate(0);

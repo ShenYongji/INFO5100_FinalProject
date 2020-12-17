@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
-import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
@@ -75,12 +74,15 @@ class smallimage extends image_info{
     private String s_path;
     //Map<String,String> data stores Metadata from ImageMetadataReader
     //Image Size, Location... will be in the Map<String,String> data
-    private Map<String,String> data = new HashMap<>();
-    public Map<String, String> get_data() {
+    private Map<String,String> img_data;
+
+    public Map<String, String> read_data() {
+        Map<String,String> data = new HashMap<>();
         try {
             Metadata metadata = ImageMetadataReader.readMetadata(new File(s_path));
             for (Directory directory : metadata.getDirectories()) {
                 for (Tag tag : directory.getTags()) {
+                    //System.out.println(tag.getTagName());
                     data.put(tag.getTagName(), tag.getDescription());
                 }
             }
@@ -90,6 +92,10 @@ class smallimage extends image_info{
             e.printStackTrace();
         }
         return data;
+    }
+
+    public Map<String, String> get_data(){
+        return img_data;
     }
 
     public void print_current_simg(){
@@ -102,6 +108,7 @@ class smallimage extends image_info{
     public smallimage(String Path) {
         super(Path);
         this.s_path = get_Path();
+        this.img_data = read_data();
     }
 }
 
@@ -114,6 +121,9 @@ class bigimage extends image_info{
 
     public void set_rotate(int n){
         rotate = rotate + n;
+    }
+    public void reset_rotate(){
+        rotate = 0;
     }
     public int get_rotate(){
         return rotate;

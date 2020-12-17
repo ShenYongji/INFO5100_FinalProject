@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FinalProject.Controller">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FinalProject.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -64,7 +64,7 @@
                                     <Button id="Add" layoutX="49.0" layoutY="245.0" minHeight="27.0" minWidth="103.0" mnemonicParsing="false" onAction="#addPicture" text="Add Image" textAlignment="JUSTIFY" />
                                     <Button id="IF" layoutX="49.0" layoutY="314.0" mnemonicParsing="false" onAction="#imageFilter" prefHeight="27.0" prefWidth="103.0" text="Image Filter" textAlignment="JUSTIFY" />
                                     <Button id="CF" layoutX="49.0" layoutY="280.0" mnemonicParsing="false" onAction="#ConvertFormat" prefHeight="27.0" prefWidth="103.0" text="Covert Format" textAlignment="JUSTIFY" />
-                                    <TextArea fx:id="info" disable="true" editable="false" layoutX="3.0" layoutY="102.0" minHeight="116.0" minWidth="194.0" prefHeight="116.0" prefWidth="194.0" text="File Name: &#10;File Size:  &#10;Image Height: &#10;Image Width:   " />
+                                    <TextArea fx:id="info" editable="false" layoutX="4.0" layoutY="100.0" minHeight="116.0" minWidth="194.0" prefHeight="116.0" prefWidth="194.0" text="File Name: &#10;File Size:  &#10;Image Height: &#10;Image Width:   " />
                                  </children>
                               </AnchorPane>
                           </items>
